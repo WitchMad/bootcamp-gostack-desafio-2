@@ -2,7 +2,7 @@
 
 ### This challenge is a full CRUD backend
 
-#### It's a backend of Academy system.
+#### It's a backend of Gym system.
 
 1. Registry Student's
 2. Plans of Registry CRUD
