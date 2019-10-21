@@ -6,9 +6,7 @@ class Register extends Model {
       {
         start_date: Sequelize.DATE,
         end_date: Sequelize.DATE,
-        price: {
-          type: Sequelize.FLOAT,
-        },
+        price: Sequelize.FLOAT,
       },
       {
         sequelize,
