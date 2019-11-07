@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Student from '../models/Student';
 
 class StudentController {
@@ -39,6 +40,30 @@ class StudentController {
       weight,
       height,
     });
+  }
+
+  async index(req, res) {
+    const { page = 1 } = req.query;
+
+    if (req.query.name) {
+      const response = await Student.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `%${req.query.name}%`,
+          },
+        },
+        order: ['name'],
+        limit: 20,
+        offset: (page - 1) * 20,
+      });
+      return res.json(response);
+    }
+    const response = await Student.findAll({
+      order: ['name'],
+      limit: 20,
+      offset: (page - 1) * 20,
+    });
+    return res.json(response);
   }
 }
 

@@ -50,6 +50,7 @@ class RegisterController {
   }
 
   async index(req, res) {
+    const { page = 1 } = req.query;
     const registers = await Register.findAll({
       attributes: [
         'id',
@@ -58,8 +59,13 @@ class RegisterController {
         'price',
         'student_id',
         'plan_id',
+        'active',
       ],
+      order: ['name'],
+      limit: 20,
+      offset: (page - 1) * 20,
     });
+
     return res.json(registers);
   }
 

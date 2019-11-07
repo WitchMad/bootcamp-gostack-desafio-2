@@ -20,9 +20,11 @@ routes.post('/students/:id/help-orders', HelpController.store);
 routes.use(authMiddleware);
 
 routes.get('/students/:id/help-orders', HelpController.index);
+routes.get('/students/help-orders', HelpController.index);
 routes.post('/students/:id/answer', HelpController.update);
 
 routes.post('/students', StudentController.store);
+routes.get('/students', StudentController.index);
 
 routes.post('/plans', PlanController.store);
 routes.get('/plans', PlanController.index);

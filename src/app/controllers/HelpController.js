@@ -28,8 +28,23 @@ class HelpController {
   }
 
   async index(req, res) {
-    const { id } = req.params;
-    const helpOrders = await HelpOrder.findAll({ where: { student_id: id } });
+    const { id = null } = req.params;
+    const { page = 1 } = req.query;
+    if (id) {
+      const helpOrders = await HelpOrder.findAll({
+        where: { student_id: id },
+        order: ['name'],
+        limit: 20,
+        offset: (page - 1) * 20,
+      });
+
+      return res.json(helpOrders);
+    }
+    const helpOrders = await HelpOrder.findAll({
+      order: ['name'],
+      limit: 20,
+      offset: (page - 1) * 20,
+    });
 
     return res.json(helpOrders);
   }
