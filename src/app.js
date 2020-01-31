@@ -4,6 +4,7 @@ import express from 'express';
 import 'express-async-errors'; // Catch the error's in async functions
 import Youch from 'youch';
 import * as Sentry from '@sentry/node'; // Service to get error's when app was in production
+import cors from 'cors';
 import routes from './routes';
 import sentryConfig from './config/sentry';
 import './database';
@@ -21,6 +22,7 @@ class App {
 
   middlewares() {
     this.server.use(express.json());
+    this.server.use(cors());
   }
 
   routes() {
