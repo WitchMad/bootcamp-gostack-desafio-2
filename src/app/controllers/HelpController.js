@@ -33,17 +33,31 @@ class HelpController {
     if (id) {
       const helpOrders = await HelpOrder.findAll({
         where: { student_id: id },
-        order: ['name'],
+        order: ['id'],
         limit: 20,
         offset: (page - 1) * 20,
+        include: [
+          {
+            model: Student,
+            as: 'student',
+            attributes: ['name', 'email', 'age', 'weight', 'height'],
+          },
+        ],
       });
 
       return res.json(helpOrders);
     }
     const helpOrders = await HelpOrder.findAll({
-      order: ['name'],
+      order: ['id'],
       limit: 20,
       offset: (page - 1) * 20,
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['name', 'email', 'age', 'weight', 'height'],
+        },
+      ],
     });
 
     return res.json(helpOrders);

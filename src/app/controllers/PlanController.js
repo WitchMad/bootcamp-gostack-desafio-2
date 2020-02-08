@@ -28,7 +28,7 @@ class PlanController {
     const { page = 1 } = req.query;
     const plan = await Plan.findAll({
       attributes: ['id', 'title', 'duration', 'price'],
-      order: ['name'],
+      order: ['id'],
       limit: 10,
       offset: (page - 1) * 10,
     });

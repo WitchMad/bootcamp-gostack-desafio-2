@@ -61,9 +61,21 @@ class RegisterController {
         'plan_id',
         'active',
       ],
-      order: ['name'],
+      order: ['id'],
       limit: 20,
       offset: (page - 1) * 20,
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['name', 'email', 'age', 'weight', 'height'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['title', 'duration', 'price'],
+        },
+      ],
     });
 
     return res.json(registers);
