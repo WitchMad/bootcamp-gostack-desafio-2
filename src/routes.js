@@ -25,6 +25,7 @@ routes.post('/students/:id/answer', HelpController.update);
 
 routes.post('/students', StudentController.store);
 routes.get('/students', StudentController.index);
+routes.delete('/students/:id', StudentController.delete);
 
 routes.post('/plans', PlanController.store);
 routes.get('/plans', PlanController.index);
