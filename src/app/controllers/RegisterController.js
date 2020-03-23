@@ -82,19 +82,19 @@ class RegisterController {
   }
 
   async update(req, res) {
+    const { id } = req.params;
     const schema = Yup.object().shape({
-      student_id: Yup.number().integer(),
       plan_id: Yup.number().integer(),
       start_date: Yup.date(),
     });
 
-    if (!(await schema.isValid)) {
+    if (!(await schema.isValid())) {
       return res
         .status(400)
         .json({ error: 'There are problems with validation' });
     }
 
-    const { student_id, plan_id, start_date } = req.body;
+    const { plan_id, start_date } = req.body;
     const plan = await Plan.findByPk(plan_id);
     const hourStart = startOfHour(parseISO(start_date));
 
@@ -104,7 +104,8 @@ class RegisterController {
     /**
      * Get all values of 'req.body' and unstructures
      */
-    await Register.update(
+    const register = await Register.findByPk(id);
+    await register.update(
       { ...req.body, end_date, price: priceFinal },
       {
         where: { id: req.params.id },
@@ -112,7 +113,6 @@ class RegisterController {
     );
 
     return res.json({
-      student_id,
       plan_id,
       start_date: hourStart,
       end_date,
